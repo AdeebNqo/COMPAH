@@ -11,11 +11,11 @@ class Archetype:
 
     def __str__(self):
         templ = """
-        (debug)
-        ==Premises==
-        {0}
-        ==Solution==
-        {1}\n
+(debug)
+==Premises==
+{0}
+==Solution==
+{1}\n
         """
         premises_str = "\n".join([latex(item) for item in self.premises])
         solution_str = self.solution.__str__()

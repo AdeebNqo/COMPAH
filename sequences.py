@@ -12,7 +12,10 @@ class CompahFunction:
         self.inits = inits
 
     def set_default_func(self, some_function):
-        self.default_function.inits = some_function
+        self.default_function = some_function
+        from sympy.abc import n
+        k = Function('s')
+        self.func_for_string = Eq(k(n), self.default_function)
 
     def __call__(self, pos):
         if pos in self.inits.keys():
@@ -21,12 +24,8 @@ class CompahFunction:
             return self.default_function.subs(self.n, pos)
 
     def __str__(self):
-        from sympy.abc import n
-        k = Function('s')
-        func = Eq(k(n), self.default_function)
-
         return '{0}(n) = {1}'.format(self.name,
-                                     latex(func))  # TODO: print the declarations of s_i = pi if they are found in inits as well.
+                                     latex(self.func_for_string))  # TODO: print the declarations of s_i = pi if they are found in inits as well.
 
 
 class GeometricFunction(CompahFunction):
@@ -37,7 +36,7 @@ class GeometricFunction(CompahFunction):
             a = Symbol('a')
         if not r:
             r = Symbol('r')
-        self.default_function = a * (r ** self.n)
+        self.set_default_func(a * (r ** self.n))
 
 
 class QuadraticFunction(CompahFunction):
@@ -50,7 +49,7 @@ class QuadraticFunction(CompahFunction):
             b = Symbol('b')
         if not c:
             c = Symbol('c')
-        self.default_function = a * (self.n ** 2) + b * (self.n) + c
+        self.set_default_func(a * (self.n ** 2) + b * (self.n) + c)
 
 
 class ArithmeticFunction(CompahFunction):
@@ -61,7 +60,7 @@ class ArithmeticFunction(CompahFunction):
             s1 = Symbol('s1')
         if not d:
             d = Symbol('d')
-        self.default_function = s1 + d * (self.n - 1)
+        self.set_default_func(s1 + d * (self.n - 1))
 
 
 class Sequence(object):
