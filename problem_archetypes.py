@@ -1,7 +1,6 @@
-from sympy import Symbol, Eq, Sum, FiniteSet, Function
+from sympy import Symbol, Eq, Sum, FiniteSet, Function, oo
 from sequences import ArithmeticSequence
 from sympy.printing import latex
-
 
 class Archetype:
     def __init__(self):
@@ -247,4 +246,185 @@ class ArithmeticArchetypeTen(Archetype):
             index = index + 1
         l_sym = Symbol('l')
         self.solution = Eq(l_sym, len(indices))
+
+
+class ArithmeticArchetypeEleven(Archetype):
+    def __init__(self, arg0, arg1):
+        super().__init__()
+        s1 = arg0[0]
+        s2 = arg0[1]
+        s3 = arg0[2]
+        siminus1 = arg0[3]
+        si = arg0[4]
+        sj = arg0[5]
+        i = arg0[6]
+        j = arg0[7]
+
+        a = arg1[0]
+        b = arg1[1]
+
+        s1_symbol = Symbol('s1')
+        s2_symbol = Symbol('s2')
+        s3_symbol = Symbol('s3')
+        siminus1_symbol = Symbol('s{0}'.format(i-1))
+        si_symbol = Symbol('s{0}'.format(i))
+        sj_symbol = Symbol('s{0}'.format(j))
+
+        prem1 = Eq(s1_symbol, s1)
+        prem2 = Eq(s2_symbol, s2)
+        prem3 = Eq(s3_symbol, s3)
+        premiminus1 = Eq(siminus1_symbol, siminus1)
+        premi = Eq(si_symbol, si)
+        premj = Eq(sj_symbol, sj)
+
+        self.premises.append(prem1)
+        self.premises.append(prem2)
+        self.premises.append(prem3)
+        self.premises.append(premiminus1)
+        self.premises.append(premi)
+        self.premises.append(premj)
+
+        self.seq = ArithmeticSequence(s1, s2 - s1, 's')
+
+        indices = []
+        index = 1
+        while index <= j:
+            # s_i % b == a |||||||   s_i == a (mod b)
+            if a == self.seq.get_function()(index) % b:
+                indices.append(index)
+            index = index + 1
+        l_sym = Symbol('l')
+        self.solution = Eq(l_sym, len(indices))
+
+
+class ArithmeticArchetypeTwelve(Archetype):
+    def __init__(self, arg0, arg1):
+        super().__init__()
+        s1 = arg0[0]
+        s2 = arg0[1]
+        s3 = arg0[2]
+        siminus1 = arg0[3]
+        si = arg0[4]
+        i = arg0[5]
+
+        s1_symbol = Symbol('s1')
+        s2_symbol = Symbol('s2')
+        s3_symbol = Symbol('s3')
+        siminus1_symbol = Symbol('s{0}'.format(i-1))
+        si_symbol = Symbol('s{0}'.format(i))
+
+        prem1 = Eq(s1_symbol, s1)
+        prem2 = Eq(s2_symbol, s2)
+        prem3 = Eq(s3_symbol, s3)
+        premiminus1 = Eq(siminus1_symbol, siminus1)
+        premi = Eq(si_symbol, si)
+
+        self.premises.append(prem1)
+        self.premises.append(prem2)
+        self.premises.append(prem3)
+        self.premises.append(premiminus1)
+        self.premises.append(premi)
+
+        self.seq = ArithmeticSequence(s1, s2 - s1, 's')
+
+        l_sym = Symbol('i')
+        self.solution = Eq(l_sym, i)
+
+
+class ArithmeticArchetypeThirteen(Archetype):
+    def __init__(self, arg0, arg1):
+        super().__init__()
+        s1 = arg0[0]
+        s2 = arg0[1]
+        s3 = arg0[2]
+        siminus1 = arg0[3]
+        si = arg0[4]
+        i = arg0[5]
+
+        s1_symbol = Symbol('s1')
+        s2_symbol = Symbol('s2')
+        s3_symbol = Symbol('s3')
+        siminus1_symbol = Symbol('s{0}'.format(i-1))
+        si_symbol = Symbol('s{0}'.format(i))
+
+        prem1 = Eq(s1_symbol, s1)
+        prem2 = Eq(s2_symbol, s2)
+        prem3 = Eq(s3_symbol, s3)
+        premiminus1 = Eq(siminus1_symbol, siminus1)
+        premi = Eq(si_symbol, si)
+
+        self.premises.append(prem1)
+        self.premises.append(prem2)
+        self.premises.append(prem3)
+        self.premises.append(premiminus1)
+        self.premises.append(premi)
+
+        self.seq = ArithmeticSequence(s1, s2 - s1, 's')
+
+        from sympy.abc import k
+        sum_eq = Sum(self.seq.get_function()(k), (k, 1, i))
+        neg_vals = []
+        for i in range(1, i+1):
+            if self.seq.get_function()(i) < 0:
+                neg_vals.append(self.seq.get_function()(i))
+        self.solution = Eq(sum_eq, sum(neg_vals))
+
+
+class ArithmeticArchetypeFourteen(Archetype):
+    def __init__(self, s1, s2, s3, total):
+        super().__init__()
+
+        s1_symbol = Symbol('s1')
+        s2_symbol = Symbol('s2')
+        s3_symbol = Symbol('s3')
+
+        prem1 = Eq(s1_symbol, s1)
+        prem2 = Eq(s2_symbol, s2)
+        prem3 = Eq(s3_symbol, s3)
+
+        self.premises.append(prem1)
+        self.premises.append(prem2)
+        self.premises.append(prem3)
+
+        self.seq = ArithmeticSequence(s1, s2 - s1, 's')
+        n = 2
+        from sympy.abc import i
+        while True:
+            sum_eq = Sum(self.seq.get_function()(i), (i, 1, n))
+            print('Testing ', n, sum_eq.doit())
+            if sum_eq.doit() == total:
+                break
+            elif abs(sum_eq.doit()) > abs(total):
+                raise ValueError('Arithmetic sequence {0}, {1}, {2}, ... cannot be summed up, starting at index 1, '
+                                 'to produce total = {3}'.format(s1, s2, s3, total))
+            n = n + 1
+
+        self.solution = Eq(Symbol('n'), n)
+
+
+class ArithmeticArchetypeFifteen(Archetype):
+    def __init__(self, s1, s4):
+        super().__init__()
+
+        s1_symbol = Symbol('s1')
+        s2_symbol = Symbol('s2')
+        s3_symbol = Symbol('s3')
+        s4_symbol = Symbol('s4')
+
+        eq1 = Eq(s4-s3_symbol - (s3_symbol-s2_symbol), 0)
+        eq2 = Eq(s3_symbol-s2_symbol - (s2_symbol-s1), 0)
+
+        from sympy import solve
+        answer = solve([eq1, eq2], (s2_symbol, s3_symbol))
+        s2 = answer[s2_symbol]
+        s3 = answer[s3_symbol]
+
+        prem1 = Eq(s1_symbol, s1)
+        prem4 = Eq(s4_symbol, s4)
+
+        self.premises.append(prem1)
+        self.premises.append(prem4)
+
+        self.seq = ArithmeticSequence(s1, s2 - s1, 's')
+        self.solution = [Eq(s2_symbol, s2), Eq(s3_symbol, s3)]
 

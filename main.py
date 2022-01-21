@@ -3,11 +3,11 @@ from problem_archetypes import *
 
 def test():
     x_sym = Symbol('x')
-    s1 = 2
-    s2 = 5
-    s3 = 14
+    s1 = 10
+    s2 = 6
+    s3 = 2
 
-    templ = ArithmeticArchetypeOne(s1, s2, s3)
+    templ = ArithmeticArchetypeFourteen(s1, s2, s3, -560)
     print(templ)
 
 # Press the green button in the gutter to run the script.
