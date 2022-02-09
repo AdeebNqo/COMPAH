@@ -36,19 +36,34 @@ class TemplateChooser(object):
             chosen_template = choice(templates)
             funcs = [latex(seq_item.rhs) for seq_item in self.archetype.premises]
             seq = ', '.join(funcs)
-            premise = chosen_template.substitute(sequence=seq)
-        elif self.number == 2:
+            premise = chosen_template.substitute(sequence=seq).strip()
+        elif self.number == 2 or self.number == 3:
             chosen_template = choice(templates)
             funcs = [latex(seq_item.rhs) for seq_item in self.archetype.premises[:3]]
             seq = ', '.join(funcs)
-            premise = chosen_template.substitute(sequence=seq)
-        return premise.strip()
+            premise = chosen_template.substitute(sequence=seq).strip()
+        elif self.number == 4 or self.number == 5:
+            chosen_template = choice(templates)
+            funcs = [latex(seq_item.rhs) for seq_item in self.archetype.premises[:2]]
+            seq = ', '.join(funcs)
+            premise = chosen_template.substitute(sequence=seq).strip()
+        elif self.number == 6:
+            chosen_template = choice(templates)
+            s1 = self.archetype.premises[0].rhs
+            s2 = self.archetype.premises[1].rhs
+            si = self.archetype.premises[2].rhs
+            seq = '{0}, {1}, ..., {2}, ...'.format(s1, s2, si)
+            premise = chosen_template.substitute(sequence=seq).strip()
+        elif self.number == 7:
+            chosen_template = choice(templates)
+            print(self.archetype)
+        return premise
 
     # Retrieves the question text
     def get_q_text(self):
         question = None
         templates = get_templates(self.template_filename)
-        if self.number == 1:
+        if self.number == 1 or self.number == 6:
             question = choice(templates).substitute()
         elif self.number == 2:
             chosen_template = choice(templates)
@@ -61,11 +76,28 @@ class TemplateChooser(object):
             )
         elif self.number == 3:
             chosen_template = choice(templates)
-            # i = self.archetype.premises[3].rhs
-            # question = chosen_template.safe_substitute(
-            #     {
-            #         'number': 's_{}'.format(i),
-            #         'sum': get_ordinal(i)
-            #     }
-            # )
+            sol = latex(self.archetype.solution)
+            question = chosen_template.safe_substitute(
+                {
+                    'number': 'n',
+                    'sum': sol
+                }
+            )
+        elif self.number == 4:
+            chosen_template = choice(templates)
+            i = self.archetype.premises[2].rhs
+            question = chosen_template.safe_substitute(
+                {
+                    'seqItemLabel': 's_{}'.format(i),
+                }
+            )
+        elif self.number == 5:
+            chosen_template = choice(templates)
+            n_val = self.archetype.premises[2].rhs
+            question = chosen_template.safe_substitute(
+                {
+                    'number': 'n',
+                    'sum': n_val
+                }
+            )
         return question

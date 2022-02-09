@@ -93,21 +93,24 @@ class ArithmeticArchetypeFour(Archetype):
         super().__init__()
         s1_symbol = Symbol('s1')
         s2_symbol = Symbol('s2')
+        i_symbol = Symbol('i')
 
         if i < 3:
             raise ValueError("ArithmeticArchetypeFour only accepts i > 2. You entered i={0}".format(i))
 
         prem1 = Eq(s1_symbol, s1)
         prem2 = Eq(s2_symbol, s2)
+        prem3 = Eq(i_symbol, i)
         self.premises.append(prem1)
         self.premises.append(prem2)
+        self.premises.append(prem3)
 
         self.seq = ArithmeticSequence(s1, s2 - s1, 's')
         self.solution = self.seq.get_function()(i)
 
 
 class ArithmeticArchetypeFive(Archetype):
-    def __init__(self, s1, s2, sum):
+    def __init__(self, s1, s2, sum_limit):
         super().__init__()
         s1_symbol = Symbol('s1')
         s2_symbol = Symbol('s2')
@@ -121,8 +124,11 @@ class ArithmeticArchetypeFive(Archetype):
         from sympy.abc import i
         n = 3
         while True:
-            val = Sum(self.seq.get_function()(i), (i, 1, n)).doit()
-            if sum == val:
+            sum_eq = Sum(self.seq.get_function()(i), (i, 1, n))
+            val = sum_eq.doit()
+            if val > sum_limit:
+                eq_eval = Eq(sum_eq, val)
+                self.premises.append(eq_eval)
                 break
             else:
                 n = n + 1
