@@ -1,4 +1,4 @@
-Given the arithmetic sequence: [sequence]
-Given the sequence: [sequence]
-Consider the sequence: [sequence]
-[sequence] ... is an arithmetic sequence.
+Given the arithmetic sequence: ${sequence}
+Given the sequence: ${sequence}
+Consider the sequence: ${sequence}
+${sequence} ... is an arithmetic sequence.

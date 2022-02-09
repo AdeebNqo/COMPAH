@@ -1,8 +1,16 @@
 from sequences import *
 from problem_archetypes import *
+from random_problem_generator import RandomProblemGenerator
+from random_template_chooser import TemplateChooser
 
-def generate_t():
+def test():
+    rg = RandomProblemGenerator()
+    p = rg.get_archetype(3)
 
-# Press the green button in the gutter to run the script.
+    print(p)
+    #tc = TemplateChooser(3, p)
+    #print(tc.get_p_text())
+    #print(tc.get_q_text())
+
 if __name__ == '__main__':
     test()

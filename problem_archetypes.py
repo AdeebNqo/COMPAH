@@ -47,6 +47,7 @@ class ArithmeticArchetypeTwo(Archetype):
         s1_symbol = Symbol('s1')
         s2_symbol = Symbol('s2')
         s3_symbol = Symbol('s3')
+        i_symbol = Symbol('i')
 
         if i < 4:
             raise ValueError("ArithmeticArchetypeTwo only accepts i > 3. You entered i={0}".format(i))
@@ -54,9 +55,11 @@ class ArithmeticArchetypeTwo(Archetype):
         prem1 = Eq(s1_symbol, s1)
         prem2 = Eq(s2_symbol, s2)
         prem3 = Eq(s3_symbol, s3)
+        prem4 = Eq(i_symbol, i)
         self.premises.append(prem1)
         self.premises.append(prem2)
         self.premises.append(prem3)
+        self.premises.append(prem4)
 
         self.seq = ArithmeticSequence(s1, s3 - s2, 's')
         self.solution = self.seq.get_function()(i)

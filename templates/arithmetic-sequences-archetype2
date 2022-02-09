@@ -1,5 +1,3 @@
-Determine the value(s) of ${seq-item-label} if the sequence is arithmetic
-Write down the ${item-position1}, ${item-position1}, ${item-position1}, and ${item-position1} terms of the sequence.
-Determine the values of ${seq-item-label1} and ${seq-item-label2}.
-Write down the ${item-position} term (${seq-item-label}) of the sequence.
-Calculate the ${item-position} term of the sequence.
+Determine the value(s) of ${seqItemLabel} if the sequence is arithmetic
+Write down the ${ordinal} term (${seqItemLabel}) of the sequence.
+Calculate the ${ordinal} term of the sequence.
