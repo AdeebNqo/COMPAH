@@ -6,12 +6,11 @@ from random_template_chooser import TemplateChooser
 
 def test():
     rg = RandomProblemGenerator()
-    arch_num = 8
+    arch_num = 9
 
     p = rg.get_archetype(arch_num)
     tc = TemplateChooser(arch_num, p)
 
-    #print(p)
     print(tc.get_p_text())
     print(tc.get_q_text())
 
