@@ -6,7 +6,7 @@ from random_template_chooser import TemplateChooser
 
 def test():
     rg = RandomProblemGenerator()
-    arch_num = 7
+    arch_num = 8
 
     p = rg.get_archetype(arch_num)
     tc = TemplateChooser(arch_num, p)

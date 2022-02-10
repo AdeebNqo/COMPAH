@@ -47,16 +47,13 @@ class TemplateChooser(object):
             funcs = [latex(seq_item.rhs) for seq_item in self.archetype.premises[:2]]
             seq = ', '.join(funcs)
             premise = chosen_template.substitute(sequence=seq).strip()
-        elif self.number == 6:
+        elif self.number == 6 or self.number == 7:
             chosen_template = choice(templates)
             s1 = self.archetype.premises[0].rhs
             s2 = self.archetype.premises[1].rhs
             si = self.archetype.premises[2].rhs
-            seq = '{0}, {1}, ..., {2}, ...'.format(s1, s2, si)
+            seq = '{0}, {1}, ..., {2}, '.format(s1, s2, si)
             premise = chosen_template.substitute(sequence=seq).strip()
-        elif self.number == 7:
-            chosen_template = choice(templates)
-            print(self.archetype)
         return premise
 
     # Retrieves the question text
@@ -100,4 +97,14 @@ class TemplateChooser(object):
                     'sum': n_val
                 }
             )
+        elif self.number == 7:
+            chosen_template = choice(templates)
+            start = self.archetype.premises[3].rhs
+            end = self.archetype.premises[4].rhs
+            number = end - start
+            alpha = self.archetype.premises[5].rhs
+            question = chosen_template.substitute({
+                'number': number,
+                'divider': alpha
+            }).strip()
         return question

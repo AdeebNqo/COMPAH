@@ -168,13 +168,23 @@ class ArithmeticArchetypeSeven(Archetype):
         s1_symbol = Symbol('s1')
         s2_symbol = Symbol('s2')
         si_symbol = Symbol('s{0}'.format(i))
+        start_symbol = Symbol('start')
+        end_symbol = Symbol('end')
+        alpha_symbol = Symbol('alpha')
 
         prem1 = Eq(s1_symbol, s1)
         prem2 = Eq(s2_symbol, s2)
         premi = Eq(si_symbol, si)
+        prem4 = Eq(start_symbol, start)
+        prem5 = Eq(end_symbol, end)
+        prem6 = Eq(alpha_symbol, a)
+
         self.premises.append(prem1)
         self.premises.append(prem2)
         self.premises.append(premi)
+        self.premises.append(prem4)
+        self.premises.append(prem5)
+        self.premises.append(prem6)
 
         self.seq = ArithmeticSequence(s1, s2 - s1, 's')
         x_s = []

@@ -60,5 +60,20 @@ class RandomProblemGenerator(object):
             arg1 = (start, end, mod_a)
 
             archetype = ArithmeticArchetypeSeven(arg0, arg1)
+        elif number == 8:
+            s1 = randint(1, 10)
+            s2 = randint(11, 20)
+            from sequences import ArithmeticSequence
+            seq = ArithmeticSequence(s1, s2-s1)
+            i = randint(3, 50)
+            si = seq.get_function()(i)
+            arg0 = (s1, s2, si, i)
+
+            x = randint(s1,4*s1)
+            a = choice([2, 5, 10, 15, 20, 25])
+            n = randint(5, 50)
+            arg1 = (x, a, n)
+
+            archetype = ArithmeticArchetypeSeven(arg0, arg1)
         # TODO: building random problem for other archetypes
         return archetype
