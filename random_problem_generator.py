@@ -75,6 +75,14 @@ class RandomProblemGenerator(object):
             arg1 = (x, a, n)
 
             archetype = ArithmeticArchetypeSeven(arg0, arg1)
+        elif number == 9:
+            s1 = randint(1, 10)
+            s2 = randint(11, 20)
+            from sequences import ArithmeticSequence
+            seq = ArithmeticSequence(s1, s2 - s1)
+            k = randint(5, 50)
+            sk = seq.get_function()(k)
+            archetype = ArithmeticArchetypeNine(s1, s2, sk, k)
         elif number == 10:
             s1 = randint(1, 10)
             s2 = randint(11, 20)

@@ -64,6 +64,13 @@ class TemplateChooser(object):
             si = self.archetype.premises[2].rhs
             seq = '{0}, {1}, ..., {2} '.format(s1, s2, si)
             premise = chosen_template.substitute(sequence=seq).strip()
+        elif self.number == 9:
+            chosen_template = choice(ser_templates)
+            s1 = self.archetype.premises[0].rhs
+            s2 = self.archetype.premises[1].rhs
+            sk = self.archetype.premises[2].rhs
+            seq = '{0} + {1} + ... + {2} '.format(s1, s2, sk)
+            premise = chosen_template.substitute(series=seq).strip()
         elif self.number == 10:
             chosen_template = choice(ser_templates)
             s1 = self.archetype.premises[0].rhs

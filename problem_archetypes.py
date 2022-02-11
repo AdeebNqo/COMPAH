@@ -238,22 +238,24 @@ class ArithmeticArchetypeEight(Archetype):
 
 
 class ArithmeticArchetypeNine(Archetype):
-    def __init__(self, seq, k):
-        self.seq = seq
+    def __init__(self, s1, s2, sk, k):
+        super().__init__()
+        self.seq = ArithmeticSequence(s1, s2-s1)
         s1_symbol = Symbol('s1')
         s2_symbol = Symbol('s2')
-        s3_symbol = Symbol('s3')
-        sk_symbol = Symbol('sk')
+        k_symbol = Symbol('k')
 
-        prem1 = Eq(s1_symbol, seq[0])
-        prem2 = Eq(s2_symbol, seq[1])
-        prem3 = Eq(s3_symbol, seq[2])
-        premk = Eq(sk_symbol, seq.get_function()(k))
+        prem1 = Eq(s1_symbol, s1)
+        prem2 = Eq(s2_symbol, s2)
+        prem3 = Eq(k_symbol, sk)
+
         self.premises.append(prem1)
         self.premises.append(prem2)
         self.premises.append(prem3)
-        self.premises.append(premk)
-        # TODO: create sum as solution
+
+        seq_i_function = Function('s')
+        from sympy.abc import i
+        self.solution = Sum(seq_i_function(i), (i, 1, k))
 
 
 class ArithmeticArchetypeTen(Archetype):
