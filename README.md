@@ -1,6 +1,6 @@
-	# Computer Assistant for High School Mathematics (COMPAH)
+# Computer Assistant for High School Mathematics (COMPAH)
 
-	This is the collection of resources created in order to build the computer assistant for generating mathematics problems
+This is the collection of resources created in order to build the computer assistant for generating mathematics problems
 
 # How to use current python code to generate problem
 
@@ -10,16 +10,13 @@ The `main.py` file shows how to generate a problem. Suppose you wanted to genera
 ```
 def generate_problem(archetype_id):
     rg = RandomProblemGenerator()
-    
-
     p = rg.get_archetype(arch_num)
     tc = TemplateChooser(arch_num, p)
-
     return tc.get_p_text(), tc.get_q_text()
 
 
 if __name__ == '__main__':
-	arch_num = 10
+    arch_num = 10
     premise, question = generate(arch_num)
     print (premise)
     print (question)
